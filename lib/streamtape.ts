@@ -112,9 +112,7 @@ class STREAMTAPE {
 
     async getFolder({ folder }: { folder: string }) {
         const data = await this.listFolders({ folder: "" });
-        const folder = data.result.folders.find(
-            (f: any) => f.folder === folder
-        );
+       
         return {
             ...data,
             folder,
