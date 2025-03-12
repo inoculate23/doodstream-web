@@ -127,6 +127,6 @@ class STREAMTAPE {
     }
 }
 
-const STREAMTAPE = new STREAMTAPE();
+//const STREAMTAPE = new STREAMTAPE();
 
 export default STREAMTAPE;
