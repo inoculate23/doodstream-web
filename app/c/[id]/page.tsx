@@ -12,9 +12,9 @@ export async function generateMetadata(
     { params }: { params: { [key: string]: string | string[] | undefined } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const fld_id = params.id as string;
-    const data = await doodstream.getFolder({ fld_id });
-        await streamtape.getFolder({ fld_id });
+    const folder = params.id as string;
+    const data = await doodstream.getFolder({ folder });
+        await streamtape.getFolder({ folder });
 
     if (data.status !== 200 || !data.folder) {
         return {
@@ -53,14 +53,14 @@ export default async function Channel({
     params: { [key: string]: string | string[] | undefined };
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
-    const fld_id = params.id as string;
+    const folder = params.id as string;
     const page =
         (searchParams.page && parseInt(searchParams.page as string)) || 1;
     const per_page =
         (searchParams.per_page && parseInt(searchParams.per_page as string)) ||
         DEFAULT_PER_PAGE;
-    const data = await doodstream.getFolder({ fld_id });
-        await streamtape.getFolder({ fld_id });
+    const data = await doodstream.getFolder({ folder });
+        await streamtape.getFolder({ folder });
 
     if (data.status !== 200 || !data.folder) {
         return (
@@ -91,7 +91,7 @@ export default async function Channel({
                     Total {folder.total_files} videos
                 </p>
             </div>
-            <CardList page={page} per_page={per_page} fld_id={fld_id} />
+            <CardList page={page} per_page={per_page} folder={folder} />
         </div>
     );
 }
