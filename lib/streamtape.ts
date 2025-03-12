@@ -11,14 +11,13 @@ type STREAMTAPEProps = {
     baseUrl?: string;
     login?: string;
     key?: string;
-    folder?: string;
 };
 
 class STREAMTAPE {
     baseUrl: string;
     key: string;
     login: string;
-    folder: string;
+    fld_id: string;
 
     upstream: string | undefined;
 
@@ -27,17 +26,19 @@ class STREAMTAPE {
             baseUrl: undefined,
             login: undefined,
             key: undefined,
-            folder: undefined,
+            fld_id: undefined,
         }
     ) {
         baseUrl = baseUrl || STREAMTAPE_BASE_URL;
         login = login || STREAMTAPE_LOGIN;
         key = key || STREAMTAPE_API_KEY;
-        folder = folder || STREAMTAPE_FOLDER;
+        folder = fld_id || STREAMTAPE_FOLDER;
         
         if (!baseUrl) throw new Error("STREAMTAPE Base URL not set");
         if (!login) throw new Error("STREAMTAPE Login not set");
         if (!key) throw new Error("STREAMTAPE Key not set");
+
+        if (!folder) throw new Error("STREAMTAPE Folder not set");
 
         this.baseUrl = baseUrl;
         this.login = login;
