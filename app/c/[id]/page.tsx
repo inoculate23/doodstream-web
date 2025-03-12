@@ -16,7 +16,7 @@ export async function generateMetadata(
 
     const fld_id = params.id as string;
     const data = await doodstream.getfld_id({ fld_id });
-        await streamtape.getfolder({ folder });
+        await streamtape.getfolder({ fld_id });
 
     if (data.status !== 200 || !data.fld_id) {
         return {
@@ -24,18 +24,12 @@ export async function generateMetadata(
             description: "Something went wrong. Please try again later.",
         };
     }
-     if (data.status !== 200 || !data.folder) {
-        return {
-            title: !data.folder ? "Channel not found" : data.msg,
-            description: "Something went wrong. Please try again later.",
-        };
-    }
+   
 
     const fld_id = data.fld_id;
-    const folder = data.foldr;
     const title = `${fld_id.name} - ${SITENAME}`;
-    const description = `${fld_id.name,folder.name} - ${fld_id.total_files, folder.total_files} videos are in this channel.`;
-    const image = `https://img.icons8.com/color/${fld_id.name, folder.name}`;
+    const description = `${fld_id.name} - ${fld_id.total_files} videos are in this channel.`;
+    const image = `https://img.icons8.com/color/${fld_id.name}`;
     const previousOgImages = (await parent).openGraph?.images || [];
     const previousTwImages = (await parent).twitter?.images || [];
 
@@ -85,9 +79,7 @@ export default async function Channel({
         );
     }
 
-    const fld_id = data.fld_id;
 
-        const folder = data.folder;
 
     return (
         <div className="md:my-2">
@@ -103,12 +95,10 @@ export default async function Channel({
                 <p className="text-xs uppercase tracking-[0.6em] text-gray-600">
                     Total {fld_id.total_files} videos
 
-                                    Total {folder.total_files} videos
 </p>
             </div>
             <CardList page={page} per_page={per_page} fld_id={fld_id} />
 
-                    <CardList page={page} per_page={per_page} fld_id={folder} />
 </div>
     );
 }
