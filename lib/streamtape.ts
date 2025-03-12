@@ -58,7 +58,7 @@ class STREAMTAPE {
     async listFiles({
         page = 1,
         per_page = DEFAULT_PER_PAGE,
-        fld_id = "",
+        fld_id = "KV5JjG6Ea_4",
     }: {
         page?: number;
         per_page?: number;
