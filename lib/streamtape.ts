@@ -28,7 +28,7 @@ class STREAMTAPE {
         key = key || STREAMTAPE_API_KEY;
 
         if (!baseUrl) throw new Error("STREAMTAPE Base URL not set");
-        IF (!login) throw new Error("STREAMTAPE Login not set");
+        if (!login) throw new Error("STREAMTAPE Login not set");
         if (!key) throw new Error("STREAMTAPE Key not set");
 
         this.baseUrl = baseUrl;
