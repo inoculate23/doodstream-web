@@ -4,6 +4,8 @@ import { Metadata, ResolvingMetadata } from "next";
 import CardList from "@/components/card-list";
 import MessageBox from "@/components/message-box";
 import doodstream from "@/lib/doodstream";
+import streamtape from "@/lib/streamtape";
+
 import { stringToColor } from "@/lib/utils";
 
 export async function generateMetadata(
@@ -56,7 +58,8 @@ export default async function Channel({
     const per_page =
         (searchParams.per_page && parseInt(searchParams.per_page as string)) ||
         DEFAULT_PER_PAGE;
-    const data = await doodstream.getFolder({ fld_id });
+    const data = await doodstream.getFolder({ fld_id }),
+        await streamtape.getFolder({ fld_id });
 
     if (data.status !== 200 || !data.folder) {
         return (
