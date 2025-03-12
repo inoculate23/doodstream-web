@@ -12,21 +12,21 @@ export async function generateMetadata(
     { params }: { params: { [key: string]: string | string[] | undefined } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const folder = params.id as string;
-    const data = await doodstream.getFolder({ folder });
-        await streamtape.getFolder({ folder });
+    const fld_id = params.id as string;
+    const data = await doodstream.getfld_id({ fld_id });
+        await streamtape.getfld_id({ fld_id });
 
-    if (data.status !== 200 || !data.folder) {
+    if (data.status !== 200 || !data.fld_id) {
         return {
-            title: !data.folder ? "Channel not found" : data.msg,
+            title: !data.fld_id ? "Channel not found" : data.msg,
             description: "Something went wrong. Please try again later.",
         };
     }
 
-    const folder = data.folder;
-    const title = `${folder.name} - ${SITENAME}`;
-    const description = `${folder.name} - ${folder.total_files} videos are in this channel.`;
-    const image = `https://img.icons8.com/color/${folder.name}`;
+    const fld_id = data.fld_id;
+    const title = `${fld_id.name} - ${SITENAME}`;
+    const description = `${fld_id.name} - ${fld_id.total_files} videos are in this channel.`;
+    const image = `https://img.icons8.com/color/${fld_id.name}`;
     const previousOgImages = (await parent).openGraph?.images || [];
     const previousTwImages = (await parent).twitter?.images || [];
 
@@ -53,19 +53,19 @@ export default async function Channel({
     params: { [key: string]: string | string[] | undefined };
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
-    const folder = params.id as string;
+    const fld_id = params.id as string;
     const page =
         (searchParams.page && parseInt(searchParams.page as string)) || 1;
     const per_page =
         (searchParams.per_page && parseInt(searchParams.per_page as string)) ||
         DEFAULT_PER_PAGE;
-    const data = await doodstream.getFolder({ folder });
-        await streamtape.getFolder({ folder });
+    const data = await doodstream.getfld_id({ fld_id });
+        await streamtape.getfld_id({ fld_id });
 
-    if (data.status !== 200 || !data.folder) {
+    if (data.status !== 200 || !data.fld_id) {
         return (
             <MessageBox
-                title={!data.folder ? "Channel not found" : data.msg}
+                title={!data.fld_id ? "Channel not found" : data.msg}
                 countdown={30}
                 variant="error"
             >
@@ -76,22 +76,22 @@ export default async function Channel({
         );
     }
 
-    const folder = data.folder;
+    const fld_id = data.fld_id;
 
     return (
         <div className="md:my-2">
             <div className="my-6 mb-10 text-center">
                 <h1
                     className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
-                    style={{ color: stringToColor(folder.name) }}
+                    style={{ color: stringToColor(fld_id.name) }}
                 >
-                    {folder.name}
+                    {fld_id.name}
                 </h1>
                 <p className="text-xs uppercase tracking-[0.6em] text-gray-600">
-                    Total {folder.total_files} videos
+                    Total {fld_id.total_files} videos
                 </p>
             </div>
-            <CardList page={page} per_page={per_page} folder={folder} />
+            <CardList page={page} per_page={per_page} fld_id={fld_id} />
         </div>
     );
 }
