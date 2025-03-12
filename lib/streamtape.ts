@@ -19,16 +19,20 @@ class STREAMTAPE {
     constructor(
         { baseUrl, key }: STREAMTAPEProps = {
             baseUrl: undefined,
+            login: undefined,
             key: undefined,
         }
     ) {
         baseUrl = baseUrl || STREAMTAPE_BASE_URL;
+        login = login || STREAMTAPE_LOGIN;
         key = key || STREAMTAPE_API_KEY;
 
         if (!baseUrl) throw new Error("STREAMTAPE Base URL not set");
+        IF (!login) throw new Error("STREAMTAPE Login not set");
         if (!key) throw new Error("STREAMTAPE Key not set");
 
         this.baseUrl = baseUrl;
+        this.login = login;
         this.key = key;
     }
 
