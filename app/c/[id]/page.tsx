@@ -13,7 +13,7 @@ export async function generateMetadata(
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const fld_id = params.id as string;
-    const data = await doodstream.getFolder({ fld_id }),
+    const data = await doodstream.getFolder({ fld_id });
         await streamtape.getFolder({ fld_id });
 
     if (data.status !== 200 || !data.folder) {
@@ -59,7 +59,7 @@ export default async function Channel({
     const per_page =
         (searchParams.per_page && parseInt(searchParams.per_page as string)) ||
         DEFAULT_PER_PAGE;
-    const data = await doodstream.getFolder({ fld_id }),
+    const data = await doodstream.getFolder({ fld_id });
         await streamtape.getFolder({ fld_id });
 
     if (data.status !== 200 || !data.folder) {
