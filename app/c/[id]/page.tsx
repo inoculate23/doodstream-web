@@ -26,7 +26,6 @@ export async function generateMetadata(
     }
    
 
-    const fld_id = data.fld_id;
     const title = `${fld_id.name} - ${SITENAME}`;
     const description = `${fld_id.name} - ${fld_id.total_files} videos are in this channel.`;
     const image = `https://img.icons8.com/color/${fld_id.name}`;
