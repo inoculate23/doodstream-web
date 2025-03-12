@@ -1,31 +1,31 @@
 import {
     DEFAULT_PER_PAGE,
     DEFAULT_REVALIDATE_INTERVAL,
-    DOODSTREAM_API_KEY,
-    DOODSTREAM_BASE_URL,
+    STREAMTAPE_API_KEY,
+    STREAMTAPE_BASE_URL,
 } from "./constants";
 
-type DoodstreamProps = {
+type STREAMTAPEProps = {
     baseUrl?: string;
     key?: string;
 };
 
-class Doodstream {
+class STREAMTAPE {
     baseUrl: string;
     key: string;
     upstream: string | undefined;
 
     constructor(
-        { baseUrl, key }: DoodstreamProps = {
+        { baseUrl, key }: STREAMTAPEProps = {
             baseUrl: undefined,
             key: undefined,
         }
     ) {
-        baseUrl = baseUrl || DOODSTREAM_BASE_URL;
-        key = key || DOODSTREAM_API_KEY;
+        baseUrl = baseUrl || STREAMTAPE_BASE_URL;
+        key = key || STREAMTAPE_API_KEY;
 
-        if (!baseUrl) throw new Error("Doodstream Base URL not set");
-        if (!key) throw new Error("Doodstream Key not set");
+        if (!baseUrl) throw new Error("STREAMTAPE Base URL not set");
+        if (!key) throw new Error("STREAMTAPE Key not set");
 
         this.baseUrl = baseUrl;
         this.key = key;
@@ -122,6 +122,6 @@ class Doodstream {
     }
 }
 
-const doodstream = new Doodstream();
+const STREAMTAPE = new STREAMTAPE();
 
-export default doodstream;
+export default STREAMTAPE;
