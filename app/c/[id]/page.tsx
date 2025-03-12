@@ -12,9 +12,11 @@ export async function generateMetadata(
     { params }: { params: { [key: string]: string | string[] | undefined } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
+        const folder = params.id as string;
+
     const fld_id = params.id as string;
     const data = await doodstream.getfld_id({ fld_id });
-        await streamtape.getfld_id({ fld_id });
+        await streamtape.getfolder({ folder });
 
     if (data.status !== 200 || !data.fld_id) {
         return {
@@ -22,11 +24,18 @@ export async function generateMetadata(
             description: "Something went wrong. Please try again later.",
         };
     }
+     if (data.status !== 200 || !data.folder) {
+        return {
+            title: !data.folder ? "Channel not found" : data.msg,
+            description: "Something went wrong. Please try again later.",
+        };
+    }
 
     const fld_id = data.fld_id;
+    const folder = data.foldr;
     const title = `${fld_id.name} - ${SITENAME}`;
-    const description = `${fld_id.name} - ${fld_id.total_files} videos are in this channel.`;
-    const image = `https://img.icons8.com/color/${fld_id.name}`;
+    const description = `${fld_id.name,folder.name} - ${fld_id.total_files, folder.total_files} videos are in this channel.`;
+    const image = `https://img.icons8.com/color/${fld_id.name, folder.name}`;
     const previousOgImages = (await parent).openGraph?.images || [];
     const previousTwImages = (await parent).twitter?.images || [];
 
@@ -78,6 +87,8 @@ export default async function Channel({
 
     const fld_id = data.fld_id;
 
+        const folder = data.folder;
+
     return (
         <div className="md:my-2">
             <div className="my-6 mb-10 text-center">
@@ -86,12 +97,18 @@ export default async function Channel({
                     style={{ color: stringToColor(fld_id.name) }}
                 >
                     {fld_id.name}
+                                        {folder.name}
+
                 </h1>
                 <p className="text-xs uppercase tracking-[0.6em] text-gray-600">
                     Total {fld_id.total_files} videos
-                </p>
+
+                                    Total {folder.total_files} videos
+</p>
             </div>
             <CardList page={page} per_page={per_page} fld_id={fld_id} />
-        </div>
+
+                    <CardList page={page} per_page={per_page} fld_id={folder} />
+</div>
     );
 }
